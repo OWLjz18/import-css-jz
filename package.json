@@ -1,0 +1,23 @@
+{
+  "name": "import-css-jz",
+  "version": "1.0.0",
+  "description": "Hook up a style sheet via javascript.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {},
+	"keywords": [
+    "css",
+    "import",
+    "import-css"
+	],
+  "author": "OWLjz18 <owl.jz18@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OWLjz18/import-css-jz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OWLjz18/import-css-jz/issues"
+  },
+  "homepage": "https://github.com/OWLjz18/import-css-jz#readme"
+}

@@ -1,0 +1,15 @@
+{ 
+	"source": {
+    "include": ["src"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules | docs)"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospace": false
+  },
+  "opts": {
+    "destination": "./docs",
+		"readme": "./README.md"
+  }
+}

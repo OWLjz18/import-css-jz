@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-import-css-jz.html">import-css-jz</a></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1 align="center">import-css-jz</h1>
+<p>Creates a 'link' element with the path specified in the first parameter and connects it to the element specified in the second parameter (which defaults to document.body).</p>
+<hr>
+<h3>📝 Pre-Requirements</h3>
+<p>All the pre-requisites mentioned here are not necessary, only the one you choose to install.</p>
+<ul>
+<li><a href="https://git-scm.com/">git</a> To clone the repository using git.</li>
+<li><a href="https://npmjs.com">npm</a> To install the package using npm.</li>
+</ul>
+<hr>
+<h3>🔧 Instalation</h3>
+<h4>Git</h4>
+<pre class="prettyprint source lang-sh"><code>git clone 'https://github.com/OWLjz18/import-css-jz.git'
+</code></pre>
+<p>Or as a submodule:</p>
+<pre class="prettyprint source lang-sh"><code>git submodule add 'https://github.com/OWLjz18/import-css-jz.git'
+</code></pre>
+<h4>NPM</h4>
+<pre class="prettyprint source lang-sh"><code>npm install import-css-jz
+</code></pre>
+<hr>
+<h3>🔎 Use</h3>
+<p>First of all, they need to import the module. Then you can save it with the name you like, I choose to do it under the name &quot;importCSS&quot;.</p>
+<p>Now suppose you have a file called code.js and a style sheet called magic.css and you want to import that style sheet into the DOM, we would do something like this:</p>
+<pre class="prettyprint source lang-javascript"><code>// code.js
+import importCSS from '/import-css-jz';
+
+importCSS('./magic.css');
+</code></pre>
+<p>That would be the same as this, if you did it manually:</p>
+<pre class="prettyprint source lang-javascript"><code>const styleSheet = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = './magic.css';
+
+document.head.append(styleSheet);
+</code></pre>
+<p>A case in which its use may seem interesting to you would be when creating web components in a vanilla way, since as we know, style sheets cannot reach the shadowDOM.</p>
+<p>Let's see an example, it will be a bit long, but explanatory:</p>
+<p>Let's first create the context, we have a file called &quot;component.js&quot; and one called &quot;component.css&quot;. Now we will see both files and then we will explain what happens in both.</p>
+<p><strong><em>component.css:</em></strong></p>
+<pre class="prettyprint source lang-css"><code>.myCustomTitle {
+  color: red;
+}
+</code></pre>
+<p><strong><em>component.js:</em></strong></p>
+<pre class="prettyprint source lang-javascript"><code>import importCSS from '/import-css-jz/src/index.js';
+
+const MyComponent = class extends HTMLElement {
+  
+  constructor () {
+
+    super();
+
+    this.attachShadow({mode: 'open'});
+
+  }
+  
+  _render () {
+    
+    this.shadowRoot.innerHTML = '&lt;h1 class=&quot;myCustomTitle&quot;>Hello World?&lt;/h1>';
+    
+    importCSS('./component.css', this.shadowRoot);
+    
+  }
+  
+  connectedCallback () {
+    
+    this._render();
+    
+  }
+  
+  static get observedAttributes () {}
+
+  attributeChangedCallback (name, oldValue, newValue) {}
+
+};
+
+customElements.define('my-component', MyComponent);
+</code></pre>
+<p>So what do we do here? Easy, let's explain in parts:</p>
+<p>First we create a simple component with the text <em>&quot;Hello World?&quot;</em> and add a <strong><em>myCustomTitle</em></strong> class to it, with which from CSS, we hope to give it a <em>red</em> color.</p>
+<p>The interesting thing here happens in the _render method, where after specifying the content of the component, we execute <strong>importCSS</strong>, but this time, passing <strong><em>this.shadowRoot</em></strong> as the second parameter so that when the component is rendered , your style sheet is connected in <em>shadowDOM</em> and not in <em>document.head</em> as it is by default.</p>
+<p>And with that, we would have our component saying &quot;Hello World?&quot; in color <em>red</em>, because... He read the style sheet!!</p>
+<p><strong><em>Note:</em></strong> import-css-jz is responsible for verifying that the style sheet you are about to import is not already in your document, if it is, import-css-jz does not add it, in order to avoid connecting the same style sheet.</p>
+<hr>
+<h3>🦉 Author</h3>
+<ul>
+<li><em><strong>José Zambrano</strong></em> (<a href="https://github.com/OWLjz18">OWLjz18</a>) =&gt; Project Creator.
+<ul>
+<li>Email =&gt; <a href="mailto:owl.jz18@gmail.com">owl.jz18@gmail.com</a></li>
+<li>Instagram =&gt; <a href="https://instagram.com/owljz18">@owljz18</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>📃 License</h3>
+<p>This project is licensed under an <em>MIT</em> license, please visit the <a href="./LICENSE.md">LICENSE.md</a> file for more information about it.</p></article>
+    </section>
+
+
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Tue Jul 12 2022 16:59:05 GMT-0400 (Venezuela Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
